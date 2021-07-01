@@ -1,121 +1,94 @@
-#include<stdio.h>
-# define max 10
-int cq_arr[max];
+#include <stdio.h>
+
+# define max 6
+int queue[max];  // array declaration
 int front=-1;
 int rear=-1;
-void insert(int item)
+// function to insert an element in a circular queue
+void enqueue(int element)
 {
-if(front==0 && rear==max-1)
-{
-printf("queue is overflow");
-return;
+    if(front==-1 && rear==-1)   // condition to check queue is empty
+    {
+        front=0;
+        rear=0;
+        queue[rear]=element;
+    }
+    else if((rear+1)%max==front)  // condition to check queue is full
+    {
+        printf("Queue is overflow..");
+    }
+    else
+    {
+        rear=(rear+1)%max;       // rear is incremented
+        queue[rear]=element;     // assigning a value to the queue at the rear position.
+    }
 }
-if (front==-1)
-{
-front=0;
-rear=0;
-}
-else
-{
-if(rear==max-1)
-{
-rear=0;
-}
-else
-{
-rear=rear+1;
-}
-cq_arr[rear]=item;
-}   }
-void del()
-{
-if(front==-1)
-{
-printf("queue is underflow");
-return;
-}
-printf("element deleted from queue is %d",cq_arr[front]);
-if(front==rear)
-{
-front=-1;
-rear=-1;
-}
-else
-{
-if(front==max-1)
-{
-front=0;
-}
-else
-{
-front=front+1;
-}
-}
-}
- void  display()
- {
- int front_pos=front;
- int rear_pos=rear;
- if (front==-1)
- {
- printf("queue is empty"  );
- return;
 
-}
-printf("queue elements");
-if(front_pos<=rear_pos)
+// function to delete the element from the queue
+int dequeue()
 {
-while(front_pos<=rear_pos)
+    if((front==-1) && (rear==-1))  // condition to check queue is empty
+    {
+        printf("\nQueue is underflow..");
+    }
+ else if(front==rear)
 {
-printf("%d",cq_arr[front_pos]);
-front_pos++;
-}
+   printf("\nThe dequeued element is %d", queue[front]);
+   front=-1;
+   rear=-1;
 }
 else
 {
-while(front_pos<=max-1)
+    printf("\nThe dequeued element is %d", queue[front]);
+   front=(front+1)%max;
+}
+}
+// function to display the elements of a queue
+void display()
 {
-printf("%d",cq_arr[front_pos]);
-front_pos++;
-}
-}
-printf("n");
+    int i=front;
+    if(front==-1 && rear==-1)
+    {
+        printf("\n Queue is empty..");
+    }
+    else
+    {
+        printf("\nElements in a Queue are :");
+        while(i<=rear)
+        {
+            printf("%d,", queue[i]);
+            i=(i+1)%max;
+        }
+    }
 }
 int main()
 {
-int choice,item;
-do
-{
-printf("1.insertion \n");
-printf("2.deletion \n");
-printf("3.display\n");
-printf("4.exit \n");
-printf("enter the choice \n");
-scanf("%d",&choice);
-switch(choice)
-{
-case 1:
-printf("input the element in queue");
-scanf("%d",&item);
-insert(item);
-break;
-case 2:
-del();
-break;
-case 3:
-display();
-break;
-case 4:
-break;
-default:
-printf("wrong");
+    int choice=1,x;   // variables declaration
+
+    while(choice<4 && choice!=0)   // while loop
+    {
+    printf("\n Press 1: Insert an element");
+    printf("\nPress 2: Delete an element");
+    printf("\nPress 3: Display the element");
+    printf("\nEnter your choice");
+    scanf("%d", &choice);
+
+    switch(choice)
+    {
+
+        case 1:
+
+        printf("Enter the element which is to be inserted");
+        scanf("%d", &x);
+        enqueue(x);
+        break;
+        case 2:
+        dequeue();
+        break;
+        case 3:
+        display();
+
+    }}
+    return 0;
 }
-}
-while(choice!=4);
-
-return 0;
-}
-
-
-
 
