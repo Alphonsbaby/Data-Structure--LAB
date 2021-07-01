@@ -26,7 +26,7 @@ void main()
 {
     int ch;
  
-    printf("\nOPERATIONS ---");
+    printf("\nOPERATIONS --BINARY SEARCH TREE-");
     printf("\n1 - Insert an element into tree\n");
     printf("2 - Delete an element from the tree\n");
     printf("3 - Inorder Traversal\n");
